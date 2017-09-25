@@ -49,7 +49,7 @@ bool UDataParser::ParseFile(FString FileName)
                         }
                         else
                         {
-                            UE_LOG(DataParser, Warning, TEXT("(%d, %d) [%d]"), col, row, cellType);
+                            UE_LOG(DataParser, Warning, TEXT("(%d, %d) [%d]"), col, row, static_cast<int32>(cellType));
                         }
                     }
                     UE_LOG(DataParser, Warning, TEXT("Elements in row %d"), arow.Num());
