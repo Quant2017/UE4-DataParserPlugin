@@ -15,6 +15,9 @@ class DATAPARSERPLUGIN_API UDataParser : public UObject
 public:
     UDataParser();
     
+    UFUNCTION(BlueprintImplementableEvent, Category = "DataParser")
+    void OnStart();
+    
     UFUNCTION(BlueprintCallable, Category = "DataParser")
     bool ParseFile(FString FileName);
     

@@ -8,6 +8,7 @@ DEFINE_LOG_CATEGORY(DataParser)
 
 UDataParser::UDataParser()
 {
+    OnStart();
 }
 
 bool UDataParser::ParseFile(FString FileName)
