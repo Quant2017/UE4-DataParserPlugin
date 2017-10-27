@@ -8,18 +8,35 @@ public class LibXL : ModuleRules
     {
         Type = ModuleType.External;
         
+        bool isLibrarySupported = false;
+        string platform = "";
+        string libname = "";
+        string dllname = "";
+        
         if (Target.Platform == UnrealTargetPlatform.Win64)
         {
-            // Add the import library
-            PublicLibraryPaths.Add(Path.Combine(ModuleDirectory, "lib", "Win64"));
-            PublicAdditionalLibraries.Add("libxl.lib");
-            
-            // Delay-load the DLL, so we can load it from the right place first
-            PublicDelayLoadDLLs.Add("libxl.dll");
+            isLibrarySupported = true;
+            platform = "Win64";
+            libname = "libxl.lib";
+            dllname = "libxl.dll";
         }
         else if (Target.Platform == UnrealTargetPlatform.Linux)
         {
-            PublicDelayLoadDLLs.Add(Path.Combine(ModuleDirectory, "lib", "Linux", "libxl.so"));
+            isLibrarySupported = true;
+            platform = "Linux";
+            libname = "libxl.so";
+            dllname = "libxl.so";
         }
+        
+        if (isLibrarySupported)
+        {
+            PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "include"));
+            PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "bin", platform, libname));
+            
+            PublicDelayLoadDLLs.Add(Path.Combine(ModuleDirectory, "bin", platform, dllname));
+            RuntimeDependencies.Add(new RuntimeDependency(Path.Combine(ModuleDirectory, "bin", platform, dllname)));
+        }
+        
+        Definitions.Add(string.Format("WITH_LIBXL_BINDING={0}", isLibrarySupported ? 1 : 0));
     }
 }

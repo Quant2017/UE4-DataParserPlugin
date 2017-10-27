@@ -1,6 +1,8 @@
 #include "DataParser.h"
-#include "libxl.h"
 #include <string>
+#if (WITH_LIBXL_BINDING == 1)
+#include "libxl.h"
+#endif
 
 
 DEFINE_LOG_CATEGORY(DataParser)
@@ -21,6 +23,7 @@ bool UDataParser::ParseFile(FString FileName)
     
     m_matrix.Empty();
     
+#if (WITH_LIBXL_BINDING == 1)
     libxl::Book *book = xlCreateXMLBook();
     if (book)
     {
@@ -78,6 +81,7 @@ bool UDataParser::ParseFile(FString FileName)
     {
         UE_LOG(DataParser, Error, TEXT("Book load failed"));
     }
+#endif
     
     return ok;
 }

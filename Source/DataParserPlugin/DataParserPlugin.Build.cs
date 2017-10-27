@@ -10,8 +10,8 @@ public class DataParserPlugin : ModuleRules
 		
 		PublicIncludePaths.AddRange(
 			new string[] {
-				"DataParserPlugin/Public"
-				
+				"DataParserPlugin/Public",
+                
 				// ... add public include paths required here ...
 			}
 			);
@@ -21,7 +21,6 @@ public class DataParserPlugin : ModuleRules
 			new string[] {
 				"DataParserPlugin/Private",
 				"DataParserPlugin/Classes",
-				"ThirdParty/LibXL/includes",
 				// ... add other private include paths required here ...
 			}
 			);
