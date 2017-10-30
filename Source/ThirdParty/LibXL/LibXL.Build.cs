@@ -31,9 +31,15 @@ public class LibXL : ModuleRules
         if (isLibrarySupported)
         {
             PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "include"));
+
+            PublicLibraryPaths.Add(Path.Combine(ModuleDirectory, "bin", platform));
+            PublicAdditionalLibraries.Add(libname);
+            PublicDelayLoadDLLs.Add(dllname);
+
+            /*PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "include"));
             PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "bin", platform, libname));
             
-            PublicDelayLoadDLLs.Add(Path.Combine(ModuleDirectory, "bin", platform, dllname));
+            PublicDelayLoadDLLs.Add(Path.Combine(ModuleDirectory, "bin", platform, dllname));*/
             RuntimeDependencies.Add(new RuntimeDependency(Path.Combine(ModuleDirectory, "bin", platform, dllname)));
         }
         

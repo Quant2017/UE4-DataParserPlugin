@@ -4,7 +4,6 @@
 #include "Core.h"
 #include "ModuleManager.h"
 #include "IPluginManager.h"
-#include "DataParser.h"
 
 
 #define LOCTEXT_NAMESPACE "FDataParserPluginModule"
@@ -12,7 +11,7 @@
 void FDataParserPluginModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
-#if (WITH_LIBXL_BINDING == 1)
+//#if (WITH_LIBXL_BINDING == 1)
     // Get the base directory of this plugin
     FString BaseDir = IPluginManager::Get().FindPlugin("DataParserPlugin")->GetBaseDir();
     
@@ -25,13 +24,13 @@ void FDataParserPluginModule::StartupModule()
 #endif
 
     
-    ParserHandle = /*!LibraryPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*LibraryPath) :*/ nullptr;
+    ParserHandle = !LibraryPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*LibraryPath) : nullptr;
 
 	if (!ParserHandle)
 	{
-		//FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("DataParserPluginError", "Failed to load third party library"));
+		FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("DataParserPluginError", "Failed to load third party library"));
 	}
-#endif
+//#endif
 }
 
 void FDataParserPluginModule::ShutdownModule()
@@ -40,7 +39,7 @@ void FDataParserPluginModule::ShutdownModule()
 	// we call this function before unloading the module.
     
     // Free the dll handle
-	//FPlatformProcess::FreeDllHandle(ParserHandle);
+	FPlatformProcess::FreeDllHandle(ParserHandle);
 	ParserHandle = nullptr;
 }
 

@@ -20,7 +20,7 @@ public class DataParserPlugin : ModuleRules
 		PrivateIncludePaths.AddRange(
 			new string[] {
 				"DataParserPlugin/Private",
-				"DataParserPlugin/Classes",
+				//"DataParserPlugin/Classes",
 				// ... add other private include paths required here ...
 			}
 			);
