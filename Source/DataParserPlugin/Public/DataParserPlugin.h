@@ -2,7 +2,6 @@
 
 #pragma once
 
-//#include "CoreMinimal.h"
 #include "ModuleManager.h"
 
 class FDataParserPluginModule : public IModuleInterface
@@ -14,5 +13,5 @@ public:
 	virtual void ShutdownModule() override;
     
 private:
-    void *ParserHandle;
+    void *ParserHandle = nullptr;
 };

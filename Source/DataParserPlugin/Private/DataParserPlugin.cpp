@@ -11,7 +11,7 @@
 void FDataParserPluginModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
-//#if (WITH_LIBXL_BINDING == 1)
+#if (WITH_LIBXL_BINDING == 1)
     // Get the base directory of this plugin
     FString BaseDir = IPluginManager::Get().FindPlugin("DataParserPlugin")->GetBaseDir();
     
@@ -19,9 +19,9 @@ void FDataParserPluginModule::StartupModule()
     FString LibraryPath;
 #if PLATFORM_WINDOWS
     LibraryPath = FPaths::Combine(*BaseDir, TEXT("Source/ThirdParty/LibXL/bin/Win64/libxl.dll"));
-#elif PLATFORM_LINUX
-    LibraryPath = FPaths::Combine(*BaseDir, TEXT("Source/ThirdParty/LibXL/bin/Linux/libxl.so"));
-#endif
+//#elif PLATFORM_LINUX
+    //LibraryPath = FPaths::Combine(*BaseDir, TEXT("Source/ThirdParty/LibXL/bin/Linux/libxl.so"));
+//#endif
 
     
     ParserHandle = !LibraryPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*LibraryPath) : nullptr;
@@ -30,16 +30,18 @@ void FDataParserPluginModule::StartupModule()
 	{
 		FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("DataParserPluginError", "Failed to load third party library"));
 	}
-//#endif
+#endif
+#endif
 }
 
 void FDataParserPluginModule::ShutdownModule()
 {
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
-    
+
     // Free the dll handle
-	FPlatformProcess::FreeDllHandle(ParserHandle);
+    if (ParserHandle)
+        FPlatformProcess::FreeDllHandle(ParserHandle);
 	ParserHandle = nullptr;
 }
 

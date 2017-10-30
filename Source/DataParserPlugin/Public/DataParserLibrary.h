@@ -16,20 +16,20 @@ DECLARE_LOG_CATEGORY_EXTERN(DataParserLibrary, Display, All)
 UCLASS()
 class DATAPARSERPLUGIN_API UDataParserLibrary : public UBlueprintFunctionLibrary
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 	
     
 public:
-    UFUNCTION(BlueprintCallable, Category = "DataParserLibrary")
-    bool ParseFile(FString FileName);
+    UFUNCTION(BlueprintCallable, Category = "DataParser")
+    static bool ParseFile(FString FileName);
 
-    UFUNCTION(BlueprintCallable, Category = "DataParserLibrary")
-    int32 GetArraysCount();
+    UFUNCTION(BlueprintCallable, Category = "DataParser")
+    static int32 GetArraysCount();
 
-    UFUNCTION(BlueprintCallable, Category = "DataParserLibrary")
-    TArray<float> & GetArray(int32 Index);
+    UFUNCTION(BlueprintCallable, Category = "DataParser")
+    static TArray<float> & GetArray(int32 Index);
 
 
 private:
-    TArray<TArray<float>> m_matrix;
+    static TArray<TArray<float>> m_matrix;
 };

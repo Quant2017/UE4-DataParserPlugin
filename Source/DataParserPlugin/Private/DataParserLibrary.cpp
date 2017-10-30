@@ -2,13 +2,15 @@
 
 #include "DataParserLibrary.h"
 #include <string>
-//#if (WITH_LIBXL_BINDING == 1)
+#if (WITH_LIBXL_BINDING == 1)
 #include "libxl.h"
-//#endif
+#endif
 
 
 DEFINE_LOG_CATEGORY(DataParserLibrary)
 
+
+TArray<TArray<float>> UDataParserLibrary::m_matrix;
 
 
 UDataParserLibrary::UDataParserLibrary(const FObjectInitializer & ObjectInitializer)
@@ -27,7 +29,7 @@ bool UDataParserLibrary::ParseFile(FString FileName)
 
     m_matrix.Empty();
 
-    //#if (WITH_LIBXL_BINDING == 1)
+#if (WITH_LIBXL_BINDING == 1)
     libxl::Book *book = xlCreateXMLBook();
     if (book)
     {
@@ -85,7 +87,7 @@ bool UDataParserLibrary::ParseFile(FString FileName)
     {
         UE_LOG(DataParserLibrary, Error, TEXT("Book load failed"));
     }
-    //#endif
+#endif
 
     return ok;
 }
